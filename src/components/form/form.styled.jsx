@@ -55,3 +55,19 @@ flex: none;
 order: 0;
 flex-grow: 0;
 `
+export const Tweets = styled.p `
+  position: absolute;
+width: 132px;
+height: 24px;
+left: 124px;
+top: 284px;
+
+font-family: 'Montserrat';
+font-style: normal;
+font-weight: 500;
+font-size: 20px;
+line-height: 24px;
+text-transform: uppercase;
+
+color: #EBD8FF;
+`
