@@ -1,5 +1,4 @@
-import Twit from "pages/twit";
-
+import Twit from 'pages/twit';
 
 export const App = () => {
   return (
@@ -7,10 +6,7 @@ export const App = () => {
       style={{
         height: '100vh',
         display: 'flex',
-        // justifyContent: 'center',
-        // alignItems: 'center',
-        // fontSize: 40,
-        color: '#010101'
+        color: '#010101',
       }}
     >
       <Twit />
