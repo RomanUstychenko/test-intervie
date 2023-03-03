@@ -1,58 +1,83 @@
 import React from 'react'
-import { Forms, Logo, Btn, BtnText, Tweets } from './form.styled'
+import { Forms, Logo, Btn, BtnFollowing, BtnText, Tweets, TweetsFollowing, PictureBox, Picture, CenterLine, PictureBoyBox } from './form.styled'
 import picture from '../../img/picture.png'
+import Line from '../../img/line.png'
 import boy from '../../img/boy.png'
-import { useState } from 'react';
+import { useState, useEffect  } from 'react';
 
 
 const Form = () => {
 
-    const [BtnActive, setBtnActive] = useState(false);
-    const [Following, setFollowing] = useState(100500);
+
+    const [BtnActive, setBtnActive] = useState(() => {
+      try {
+        const Btn = localStorage.getItem("BtnActive");
+            return Btn === null ? undefined : JSON.parse(Btn);
+      } catch (error) {
+        console.log(error)
+      }
+        });
+    const [Following, setFollowing] = useState( () => {
+      let Foll = localStorage.getItem("Following") || 10500;
+      console.log(Foll)
+      return Foll === null ? undefined : JSON.parse(Foll);
+    });
+console.log(Following)
+
+    useEffect (() => {
+      
+    localStorage.setItem("BtnActive", JSON.stringify(BtnActive));
+    localStorage.setItem("Following", JSON.stringify(Following));
+
+
+
+  }, [BtnActive, Following]) 
+
+
 
   return (
-    <Forms>
-       
-        <span>
+    <Forms>    
             <Logo />
-        </span>
-        <div>
-            <img src={picture} alt="fff" />
-        </div>
-        <div>
+        <PictureBox>
+            <Picture src={picture} alt="fff" />
+        </PictureBox>
+       
+        <PictureBoyBox>
             <img src={boy} alt="fff" />
-        </div>
-        <div>
+        </PictureBoyBox>        
+          <CenterLine src={Line} alt="fff" />
             <Tweets>
             777 TWEETS
             </Tweets>
-        </div>
-        <div>
-        <Tweets>
-            {Following}
-            </Tweets>
-        </div>
+      
+        <TweetsFollowing>
+           {Following}
+            </TweetsFollowing>
+      
         {!BtnActive && (
             <Btn
+            type="button"
             onClick={() => {
                 setBtnActive(true);
-                setFollowing((prev) => prev + 1);
+                setFollowing((prev ) => prev + 1);
               }}>
             <BtnText
             >FOLLOW</BtnText>
             </Btn>
         )}
           {BtnActive && (
-            <Btn
+            <BtnFollowing
+            type="button"
+           
             onClick={() => {
                 setBtnActive(false);
                 setFollowing((prev) => prev - 1);
               }}>
             <BtnText>FOLLOWING</BtnText>
-            </Btn>
+            </BtnFollowing>
         )}
             
         </Forms>
   )
 }
-export default Form
+export default Form;
